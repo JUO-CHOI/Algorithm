@@ -3,24 +3,22 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         String S = scanner.nextLine();
-        int[] arry = new int[26];
 
-        for (int i = 0; i < arry.length; i++) {
-            arry[i] = -1;
+        int[] arry = new int[26];
+        Arrays.fill(arry, -1);
+
+        for (int i = 0; i < S.length(); i++) {
+            char c = S.charAt(i);
+            if (arry[c - 'a'] == -1) {
+                arry[c - 'a'] = i;
+            }
         }
 
-        char[] charArry = S.toCharArray();
-
-        for (int i = 0; i < 26; i++) {
-            for (int j = 0; j < charArry.length; j++) {
-                if (charArry[j] == (char)(i+97)) {
-                    arry[i] = j;
-                    break;
-                }
-            }
-            System.out.print(arry[i] + " ");
+        for (int i : arry) {
+            System.out.print(i + " ");
         }
     }
 }
