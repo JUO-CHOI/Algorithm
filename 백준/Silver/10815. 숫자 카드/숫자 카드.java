@@ -8,7 +8,7 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Scanner scanner = new Scanner(System.in);
         check(reader);
-
+        reader.close();
 
     }
 
