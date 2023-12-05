@@ -5,10 +5,8 @@ public int[] solution(int[] arr, int[][] queries) {
         for (int i = 0; i < n; i++) {
             int s = queries[i][0];
             int e = queries[i][1];
-            for (int j = 0; j < arr.length; j++) {
-                if (j >= s && j <= e) {
+            for (int j = s; j <= e; j++) {
                     arr[j] += 1;
-                }
             }
         }
         return arr;
