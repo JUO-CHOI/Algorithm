@@ -21,12 +21,13 @@ public class Main {
     public static int visibleStick(Stack<Integer> stack) {
         int count = 0;
         int height = 0;
+        int now = 0;
         while (!stack.empty()) {
-            if (stack.peek() > height) {
-                height = stack.pop();
+            now = stack.pop();
+            if (now > height) {
+                height = now;
                 count++;
             }
-            else stack.pop();
         }
         return count;
     }
