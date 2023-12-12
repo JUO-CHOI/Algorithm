@@ -13,25 +13,21 @@ class Solution {
             int[] tempArr = Arrays.copyOfRange(array, ijk[0] - 1, ijk[1]);
             int num = tempArr.length;
             for (int j = 0; j < num; j++) {
-                int maxIndex = 0; // 가장 큰 수가 있는 인덱스
+                int minIndex = j; // 가장 작은 수가 있는 인덱스, 초기에는 맨 앞
                 int temp;
-                // 배열의 길이만큼 비교, 제일 큰 수를 가장 뒤에 두므로
-                // 정렬할때마다 비교하는 횟수가 1씩 줄어듬
-                for(int k = 0; k < num - j; k++) {
-                    if (tempArr[k] > tempArr[maxIndex]) {
-                        maxIndex = k; // 더 큰 숫자를 가진 인덱스
+
+                for(int k = j; k < num; k++) {
+                    if (tempArr[k] < tempArr[minIndex]) {
+                        minIndex = k; // 더 작은 숫자를 가진 인덱스
                     }
                 }
-                temp = tempArr[num - j - 1]; // 맨 뒷 숫자 temp에 저장
-                tempArr[num - j - 1] = tempArr[maxIndex]; // 맨 뒤에 가장 큰 수 저장
-                tempArr[maxIndex] = temp; // 빈 자리에 기존 맨 뒷 숫자 저장
+                temp = tempArr[j]; // 맨 앞 숫자 temp에 저장
+                tempArr[j] = tempArr[minIndex]; // 맨 앞에 가장 작 수 저장
+                tempArr[minIndex] = temp; // 빈 자리에 기존 맨 앞 숫자 저장
             }
-           
-//            Arrays.sort(tempArr);
+            System.out.println(Arrays.toString(tempArr));
             answer[i] = tempArr[ijk[2] - 1];
         }
-
-//        System.out.println(Arrays.toString(answer));
         return answer;
     }
 }
