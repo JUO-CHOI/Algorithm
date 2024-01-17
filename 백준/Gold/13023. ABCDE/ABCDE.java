@@ -46,6 +46,7 @@ public class Main {
         used[node] = true;
         if (depth == 5) {
             answer = 1;
+            return;
         }
         // 답 이미 찾았으면 멈춤
         if (answer == 0) {
