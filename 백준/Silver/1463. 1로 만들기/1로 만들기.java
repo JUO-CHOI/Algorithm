@@ -13,7 +13,7 @@ public class Main {
 
             if (i % 3 == 0 || i % 2 == 0) {
                 if (i % 3 == 0 && i % 2 == 0) {
-                    dp[i] = Math.min(Math.min(dp[i / 3] + 1, dp[i / 2] + 1), dp[i]);
+                    dp[i] = Math.min(dp[i / 3] + 1, dp[i / 2] + 1);
                 }
                 else if (i % 3 == 0) {
                     dp[i] = Math.min(dp[i / 3] + 1, dp[i]);
