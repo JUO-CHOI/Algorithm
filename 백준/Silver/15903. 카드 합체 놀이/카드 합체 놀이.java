@@ -1,72 +1,34 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.PriorityQueue;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String[] nm = reader.readLine().split(" ");
+        int n = Integer.parseInt(nm[0]);
+        int m = Integer.parseInt(nm[1]);
 
-        String[] NM = reader.readLine().split(" ");
-        int n = Integer.parseInt(NM[0]);
-        int m = Integer.parseInt(NM[1]);
-
-        String[] cardsString = reader.readLine().split(" ");
-        long[] cards = new long[n];
-        long[] tmp = new long[n];
+        // 최종 합이 가장 작으려면 최대한 작은 수끼리 더해야 함
+        PriorityQueue<Long> priorityQueue = new PriorityQueue<>();
+        String[] cards = reader.readLine().split(" ");
         for (int i = 0; i < n; i++) {
-            cards[i] = Integer.parseInt(cardsString[i]);
+            priorityQueue.add(Long.parseLong(cards[i]));
         }
 
         for (int i = 0; i < m; i++) {
-            mergeSort(0, cards.length - 1, cards, tmp);
-            long plus = cards[0] + cards[1];
-            cards[0] = plus;
-            cards[1] = plus;
+            // 맨 앞에 두 카드 빼서 더한 다음 그 값을 두번 넣어줌 (두 카드에 값 덮어쓰기)
+            long num1 = priorityQueue.poll();
+            long num2 = priorityQueue.poll();
+            priorityQueue.add(num1 + num2);
+            priorityQueue.add(num1 + num2);
         }
 
-        long sum = 0;
-        for (int i = 0; i < n; i++) {
-            sum += cards[i];
+        long answer = 0;
+        while (!priorityQueue.isEmpty()) {
+            answer += priorityQueue.poll();
         }
-
-        System.out.println(sum);
-    }
-
-    public static void mergeSort(int start, int end, long[] arr, long[] tmp) {
-        if (start < end) {
-            // 중앙값
-            int mid = (start + end) / 2;
-            // 앞쪽 정렬
-            mergeSort(start, mid, arr, tmp);
-            // 뒷쪽 정렬
-            mergeSort(mid + 1, end, arr, tmp);
-            // 병합
-            merge(start, mid, end, arr, tmp);
-        }
-    }
-
-    public static void merge(int start, int mid, int end, long[] arr, long[] tmp) {
-        for (int i = start; i <= end; i++) {
-            tmp[i] = arr[i];
-        }
-        int part1 = start;
-        int part2 = mid + 1;
-        int index = start;
-
-        while (part1 <= mid && part2 <= end) {
-            if (tmp[part1] <= tmp[part2]) {
-                arr[index] = tmp[part1];
-                part1++;
-            }
-            else {
-                arr[index] = tmp[part2];
-                part2++;
-            }
-            index++;
-        }
-
-        for (int i = 0; i <= mid - part1; i++) {
-            arr[index + i] = tmp[part1 + i];
-        }
+        System.out.println(answer);
     }
 }
