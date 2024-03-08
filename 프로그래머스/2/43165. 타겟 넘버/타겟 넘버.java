@@ -15,11 +15,8 @@ public class Solution {
             }
         }
         else {
-            sum += numbers[depth];
-            recursive(sum, depth + 1, n, numbers, target);
-            sum -= numbers[depth];
-            sum -= numbers[depth];
-            recursive(sum, depth + 1, n, numbers, target);
+            recursive(sum + numbers[depth], depth + 1, n, numbers, target);
+            recursive(sum - numbers[depth], depth + 1, n, numbers, target);
         }
     }
 }
