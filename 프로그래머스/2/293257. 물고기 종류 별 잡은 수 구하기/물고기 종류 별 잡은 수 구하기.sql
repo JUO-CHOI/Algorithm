@@ -1,0 +1,8 @@
+SELECT 
+    COUNT(*) AS FISH_COUNT,
+    n.fish_name as FISH_NAME
+FROM FISH_INFO AS i
+INNER JOIN FISH_NAME_INFO AS n
+    ON i.fish_type = n.fish_type
+GROUP BY FISH_NAME
+ORDER BY FISH_COUNT DESC;
