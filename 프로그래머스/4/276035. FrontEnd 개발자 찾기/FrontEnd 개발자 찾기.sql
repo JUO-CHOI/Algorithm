@@ -1,16 +1,10 @@
-WITH front AS (
-    SELECT 
-        CODE
-    FROM SKILLCODES
-    WHERE CATEGORY = 'Front End'
-)
-
 SELECT DISTINCT
     d.ID,
     d.EMAIL,
     d.FIRST_NAME,
     d.LAST_NAME
-FROM front f
-JOIN DEVELOPERS d
-    ON f.CODE & d.SKILL_CODE > 0
+FROM DEVELOPERS d
+JOIN SKILLCODES s
+    ON (d.SKILL_CODE & s.CODE) > 0
+WHERE s.CATEGORY = 'Front End'
 ORDER BY d.ID;
