@@ -16,6 +16,7 @@ WITH RECURSIVE GENERATION AS (
         FROM ECOLI_DATA AS d
         JOIN GENERATION AS g
             ON d.PARENT_ID = g.ID
+        WHERE g.GEN < 3 # 재귀 종료 조건 추가
 )
 
 SELECT ID
