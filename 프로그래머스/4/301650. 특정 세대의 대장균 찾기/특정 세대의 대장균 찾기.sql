@@ -1,27 +1,24 @@
-WITH RECURSIVE GEN_TREE AS (
-    SELECT ID, PARENT_ID, 1 AS GEN
+WITH RECURSIVE GENERATION AS (
+    # 재귀 초기 설정 -> 1세대 대장균
+    SELECT 
+        ID,
+        PARENT_ID,
+        1 AS GEN
     FROM ECOLI_DATA
     WHERE PARENT_ID IS NULL
     
     UNION ALL
     
-    SELECT e.ID, e.PARENT_ID, t.GEN + 1
-    FROM ECOLI_DATA e
-    JOIN GEN_TREE t
-        ON e.PARENT_ID = t.ID
+    SELECT
+        d.ID,
+        d.PARENT_ID,
+        g.GEN + 1
+        FROM ECOLI_DATA AS d
+        JOIN GENERATION AS g
+            ON d.PARENT_ID = g.ID
 )
 
 SELECT ID
-FROM GEN_TREE
+FROM GENERATION
 WHERE GEN = 3
 ORDER BY ID;
-
-
-# SELECT t.ID
-# FROM ECOLI_DATA AS t
-# JOIN ECOLI_DATA AS s
-#     ON t.PARENT_ID = s.ID
-# JOIN ECOLI_DATA AS f
-#     ON s.PARENT_ID = f.ID
-# WHERE f.PARENT_ID IS NULL
-# ORDER BY t.ID;
