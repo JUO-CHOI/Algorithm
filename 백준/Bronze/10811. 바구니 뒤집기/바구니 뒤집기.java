@@ -1,17 +1,12 @@
 import java.util.Scanner;
 
 public class Main {
-    static int m;
-    static int n;
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         // M와 N 입력받기
-        String input = scanner.nextLine();
-        String[] mn = input.split(" ");
-        m = Integer.parseInt(mn[0]);
-        n = Integer.parseInt(mn[1]);
+        int m = scanner.nextInt();
+        int n = scanner.nextInt();
 
         // N 크기의 바구니 배열 만들기
         int[] baskets = new int[m];
@@ -21,12 +16,10 @@ public class Main {
 
         // N번만큼 수행하기
         for (int i = 0; i < n; i++) {
-            input = scanner.nextLine();
-            mn = input.split(" ");
-            int from = Integer.parseInt(mn[0]);
-            int to = Integer.parseInt(mn[1]);
+            int left = scanner.nextInt();
+            int right = scanner.nextInt();
 
-            baskets = reverse(baskets, from, to);
+            reverse(baskets, left, right);
         }
 
         // 출력하기
@@ -35,21 +28,15 @@ public class Main {
         }
     }
 
-    public static int[] reverse(int[] baskets, int from, int to) {
-        // 임시 배열 만들기
-        int[] reverseBaskets = new int[baskets.length];
-        for (int i = 0; i < reverseBaskets.length; i++) {
-            reverseBaskets[i] = baskets[i];
-        }
-
-        // 시행할 횟수
-        int count = to - from + 1;
-
+    // 배열은 참조형이기 때문에 메서드에서 배열 값을 바꾸면 원본 배열도 바뀜 -> 굳이 리턴 안해도 된다
+    public static void reverse(int[] baskets, int left, int right) {
         // 값 뒤집기
-        for (int i = 0; i < count; i++) {
-            reverseBaskets[to - i - 1] = baskets[from + i - 1];
+        while (left < right) {
+            int temp = baskets[left - 1];
+            baskets[left - 1] = baskets[right - 1];
+            baskets[right - 1] = temp;
+            left++;
+            right--;
         }
-
-        return reverseBaskets;
     }
 }
