@@ -4,20 +4,25 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        // 입력받기
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String s = reader.readLine();;
-        System.out.println(checkPalindrome(s));
-    }
+        String input = reader.readLine();
+        
+        // 좌우 비교하기
+        int answer = 1;
+        int left = 0;
+        int right = input.length() - 1;
 
-    public static int checkPalindrome(String s) {
-        int start = 0;
-        int end = s.length() - 1;
-
-        while (start <= end) {
-            if (s.charAt(start) != s.charAt(end)) return 0;
-            start++;
-            end--;
+        while (left < right) {
+            if (input.charAt(left) == input.charAt(right)) {
+                left++;
+                right--;
+            } else {
+                answer = 0;
+                break;
+            }
         }
-        return 1;
+
+        System.out.println(answer);
     }
 }
