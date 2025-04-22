@@ -5,34 +5,35 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String num = reader.readLine();
-        String[] dimensionNum = num.split(" ");
-        int n = Integer.parseInt(dimensionNum[0]);
-        int m = Integer.parseInt(dimensionNum[1]);
 
-        int[][] A = new int[n][m];
-        int[][] B = new int[n][m];
+        // 배열 크기 입력받기
+        String[] arraySize = reader.readLine().split(" ");
+        int n = Integer.parseInt(arraySize[0]);
+        int m = Integer.parseInt(arraySize[1]);
 
+        // 배열 생성
+        int[][] answer = new int[n][m];
+
+        // 배열 입력받으면서 더하기
         for (int i = 0; i < n; i++) {
-            String input = reader.readLine();
-            String[] inputNumArray = input.split(" ");
+            String[] inputNum = reader.readLine().split(" ");
             for (int j = 0; j < m; j++) {
-                A[i][j] = Integer.parseInt(inputNumArray[j]);
-            }
-        }
-        for (int i = 0; i < n; i++) {
-            String input = reader.readLine();
-            String[] inputNumArray = input.split(" ");
-            for (int j = 0; j < m; j++) {
-                B[i][j] = Integer.parseInt(inputNumArray[j]);
+                answer[i][j] = Integer.parseInt(inputNum[j]);
             }
         }
 
-        int [][] result = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            String[] inputNum = reader.readLine().split(" ");
+            for (int j = 0; j < m; j++) {
+                answer[i][j] += Integer.parseInt(inputNum[j]);
+            }
+        }
+
+        // 배열 출력
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                result[i][j] = A[i][j] + B[i][j];
-                System.out.print(result[i][j] + " ");
+                System.out.print(answer[i][j]);
+                if (j < m - 1) System.out.print(" ");
             }
             System.out.println();
         }
