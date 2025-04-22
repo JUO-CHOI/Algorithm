@@ -1,33 +1,41 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int T = scanner.nextInt();
-        scanner.nextLine();
+    static int isPalindrome;
+    static int palindromeCount;
 
-        String[] arry = new String[T];
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        for (int i = 0; i < T; i++) {
-            arry[i]  = scanner.nextLine();
+        // 테스트케이스 개수
+        int t = Integer.parseInt(reader.readLine());
+        String[] inputs = new String[t];
+
+        for (int i = 0; i < t; i++) {
+            inputs[i] = reader.readLine();
         }
 
-        for (int i = 0; i < T; i++) {
-            int count = 0;
-            System.out.println(isPalindrome(arry[i], arry[i].length() - 1, 0, count));
+        for (int i = 0; i < t; i++) {
+            recursion(inputs[i], 0, inputs[i].length() - 1, 1);
+            System.out.println(isPalindrome + " " + palindromeCount);
         }
     }
 
-    public static int isPalindrome(String S, int l, int r, int count) {
-        count++;
-        if (r + 1 > l) {
-            System.out.print(1 + " ");
-            return count;
+    public static void recursion(String input, int left, int right, int count) {
+        if (left >= right) { // 문제없이 좌우가 만남 -> 팰린드롬
+            isPalindrome = 1;
+            palindromeCount = count;
+            return;
         }
-        else if (S.charAt(l) != S.charAt(r)) {
-            System.out.print(0 + " ");
-            return count;
+        else if (input.charAt(left) != input.charAt(right)) { // 중간에 글자가 다름 -> 팰린드롬 아님
+            isPalindrome = 0;
+            palindromeCount = count;
+            return;
         }
-        return isPalindrome(S, l - 1, r + 1, count);
+
+        // 일단 현재까지 좌우 같음 -> 좌우 한칸씩 이동하고 다시 검사
+        recursion(input, left + 1, right - 1, count + 1);
     }
 }
