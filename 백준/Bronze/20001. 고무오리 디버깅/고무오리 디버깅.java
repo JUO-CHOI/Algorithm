@@ -1,41 +1,38 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        rubberDuck(reader);
-    }
 
-    public static void rubberDuck(BufferedReader reader) throws IOException {
-        reader.readLine(); // 첫줄 고무오리 디버깅 시작
-        Stack<Integer> prob = new Stack<>();
-        boolean flag = true;
-        while (flag) {
-            String input = reader.readLine();
+        // 고무오리 디버깅 시작
+        String input = reader.readLine();
 
-            switch (input) {
-                case "문제" :
-                    prob.push(1);
-                    break;
-                case "고무오리" :
-                    if (prob.isEmpty()) {
-                        prob.push(1);
-                        prob.push(1);
-                    }
-                    else prob.pop();
-                    break;
-                case "고무오리 디버깅 끝" :
-                    flag = false;
-                    break;
+        // 문제와 고무오리 카운트
+        int quiz = 0;
+        while (true) {
+            input = reader.readLine();
+            // 종료 조건
+            if (input.equals("고무오리 디버깅 끝")) {
+                break;
+            }
+            if (input.equals("문제")) {
+                quiz++;
+            }
+            if (input.equals("고무오리")) {
+                if (quiz <= 0) {
+                    quiz += 2;
+                } else {
+                    quiz--;
+                }
             }
         }
-        if (prob.isEmpty())
-            System.out.print("고무오리야 사랑해");
-        else
-            System.out.print("힝구");
+
+        if (quiz > 0) {
+            System.out.println("힝구");
+        } else {
+            System.out.println("고무오리야 사랑해");
+        }
     }
 }
