@@ -14,9 +14,9 @@ public class Main {
         for (int i = 0; i < 9; i++) {
             String[] inputLineArray = reader.readLine().split(" ");
             for (int j = 0; j < 9; j++) {
-
-                if (Integer.parseInt(inputLineArray[j]) > max) {
-                    max = Integer.parseInt(inputLineArray[j]);
+                int num = Integer.parseInt(inputLineArray[j]);
+                if (num > max) {
+                    max = num;
                     row = i + 1;
                     column = j + 1;
                 }
