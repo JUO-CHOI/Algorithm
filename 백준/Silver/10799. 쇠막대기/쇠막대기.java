@@ -6,28 +6,35 @@ import java.util.Stack;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String line = reader.readLine();
-        Stack<Character> stack = new Stack<>();
+        String input = reader.readLine();
+
         int answer = 0;
 
-        for (int i = 0; i < line.length(); i++) {
-            char c = line.charAt(i);
-            if (c == '(') { // (
+        // 처음 시작은 무조건 ( 이겠지?
+        Stack<Character> stack = new Stack<>();
+        stack.push('(');
+
+        for (int i = 1; i < input.length(); i++) {
+            char c =input.charAt(i);
+            // 시작점이면 일단 넣고보기
+            if (c == '(') {
                 stack.push(c);
             }
-            else { // )
-                if (line.charAt(i - 1) == '(') { // ()이므로 레이저
-                    // 이전에 있던 막대기가 잘린것 -> 스택 사이즈만큼 더해준다.
-                    stack.pop(); // 레이저쌍 pop
+            // 끝지점이면 절단기인지 끝인지 확인하기
+            if (c == ')') {
+                // 절단기
+                if (input.charAt(i - 1) == '(') {
+                    stack.pop();
                     answer += stack.size();
                 }
-                else { // )) 이므로 막대기 끝을 의미 -> 앞에 쌍 하나 pop하고 한조각 더함
-                    stack.pop(); // 막대기쌍 pop
+                // 끝지점
+                else {
+                    stack.pop();
                     answer += 1;
                 }
             }
         }
-        System.out.println(answer);
-    }
 
+        System.out.print(answer);
+    }
 }
