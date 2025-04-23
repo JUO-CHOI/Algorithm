@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -18,10 +20,13 @@ public class Main {
             members[i] = new Person(age, name);
         }
 
-        mergeSort(members, temp, 0, members.length - 1);
+        // TimSort n log n
+        Arrays.sort(members, Comparator.comparingInt(p -> p.age));
+
+        // 병합정렬
+        // mergeSort(members, temp, 0, members.length - 1);
 
         StringBuilder sb = new StringBuilder();
-
         for (Person member : members) {
             sb.append(member.age).append(" ").append(member.name).append("\n");
         }
