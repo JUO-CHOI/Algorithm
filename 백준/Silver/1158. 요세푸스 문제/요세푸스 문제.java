@@ -1,45 +1,37 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        String input = reader.readLine();
-        String[] inputArr = input.split(" ");
-        int peopleNum = Integer.parseInt(inputArr[0]);
-        int start = Integer.parseInt(inputArr[1]);
-        int idx = start - 1;
+        String[] input = reader.readLine().split(" ");
+        int n = Integer.parseInt(input[0]);
+        int k = Integer.parseInt(input[1]);
 
-        List<Integer> people = new ArrayList<>();
-        List<Integer> answerList = new ArrayList<>();
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 1; i <= n; i++) {
+            queue.offer(i);
+        }
 
-        // 1~N까지 사람 더해주기
-        for (int i = 0; i < peopleNum; i++) {
-            people.add(i + 1);
+        int[] answer = new int[n];
+
+        int tmp;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < k - 1; j++) {
+                tmp = queue.poll(); // 큐가 비어있으면 런타임에러가 발생할 수 있으나 크기가 n인 큐에서 한개씩 n번 빼내는거라 비어있을 수 없음
+                queue.offer(tmp);
+            }
+            answer[i] = queue.poll();
         }
-        // 배열이 빌때까지 더해주기
-        while (true) {
-            answerList.add(people.get(idx));
-            people.remove(idx);
-            if (people.isEmpty())
-                break;
-            // 줄어든 숫자 세줌
-            // 새로운 인덱스는 기존 인덱스에서 그사람이 빠졌으니 1 빼주고 숫자만큼 더해줌
-            // 초과시 나머지로
-            idx = (idx + start - 1) % people.size();
-        }
+
         System.out.print("<");
-        for (int i = 0; i < answerList.size(); i++) {
-            if (i == answerList.size() - 1) {
-                System.out.print(answerList.get(i) + ">");
-            }
-            else {
-                System.out.print(answerList.get(i) + ", ");
-            }
+        for (int i = 0; i < n - 1; i++) {
+            System.out.print(answer[i] + ", ");
         }
+        System.out.print(answer[n - 1] + ">");
     }
 }
