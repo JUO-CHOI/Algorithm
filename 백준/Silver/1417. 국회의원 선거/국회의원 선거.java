@@ -5,31 +5,36 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(reader.readLine());
-        int[] arr = new int[n];
+
+        int n = Integer.parseInt(reader.readLine()); // 국회의원 n명
+
+        int[] votes = new int[n];
+
         for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(reader.readLine());
+            votes[i] = Integer.parseInt(reader.readLine());
         }
 
-        int answer = 0;
-        int maxIndex = 0;
+
+        int count = 0;
 
         while (true) {
-            int max = 0;
-            for (int i = 0; i < n; i++) {
-                if (arr[i] >= max) {
-                    maxIndex = i;
-                    max = arr[i];
-                }
+            int maxIndex = 0;
+            int maxVotes = 0;
 
+            for (int i = 0; i < n; i++) {
+                if (votes[i] >= maxVotes) {
+                    maxIndex = i;
+                    maxVotes = votes[i];
+                }
             }
+
             if (maxIndex == 0) break;
-            arr[0]++;
-            arr[maxIndex]--;
-//            System.out.println(arr[0] + " " + maxIndex + " " + arr[maxIndex]);
-            answer++;
+
+            votes[0]++;
+            votes[maxIndex]--;
+            count++;
         }
 
-        System.out.println(answer);
+        System.out.print(count);
     }
 }
