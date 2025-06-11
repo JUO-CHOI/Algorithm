@@ -8,34 +8,33 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         int n = Integer.parseInt(reader.readLine());
+        String[] inputN = reader.readLine().split(" ");
 
-        String[] input = reader.readLine().split(" ");
-
-        int m = Integer.parseInt(reader.readLine());
-
-        String[] targets = reader.readLine().split(" ");
-
-        Arrays.sort(input);
-
-        int[] answer = new int[m];
-        Arrays.fill(answer, 0);
-
-        for (int i = 0; i < m; i++) {
-            String target = targets[i];
-//            for (int j = 0; j < n; j++) {
-//                if (target.equals(input[j])) {
-//                    answer[i] = 1;
-//                    break;
-//                }
-//            }
-            int a = Arrays.binarySearch(input, target);
-            if (a >= 0) {
-                answer[i] = 1;
-            }
+        int[] intN = new int[n];
+        for (int i = 0; i < n; i++) {
+            intN[i] = Integer.parseInt(inputN[i]);
         }
 
-        for (int num : answer) {
-            System.out.println(num);
+        int m = Integer.parseInt(reader.readLine());
+        String[] inputM = reader.readLine().split(" ");
+
+        int[] intM = new int[m];
+        for (int i = 0; i < m; i++) {
+            intM[i] = Integer.parseInt(inputM[i]);
+        }
+
+        Arrays.sort(intN);
+
+        int temp;
+
+        for (int i = 0; i < m; i++) {
+            temp = Arrays.binarySearch(intN, intM[i]);
+
+            if (temp >= 0) {
+                System.out.println(1);
+            } else {
+                System.out.println(0);
+            }
         }
     }
 }
