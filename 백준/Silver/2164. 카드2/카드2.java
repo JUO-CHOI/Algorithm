@@ -9,23 +9,17 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(reader.readLine());
 
-        // 카드 담을 큐
-        Queue<Integer> cards = new LinkedList<>();
-        // 1 ~ N 까지 넣어줌 (1이 맨 위)
-        for (int i = 0; i < n; i++) {
-            cards.add(i + 1);
+        Queue<Integer> queue = new LinkedList<>();
+
+        for (int i = 1; i <= n; i++) {
+            queue.offer(i);
         }
 
-        // 1장 남을때까지
-        while (cards.size() > 1) {
-            // 1. 맨 윗카드 버리기
-            cards.poll();
-            // 2. 그 다음 윗카드 맨 아래로 넣기
-            cards.add(cards.poll());
+        while (queue.size() > 1) {
+            queue.poll();
+            queue.offer(queue.poll());
         }
 
-        int answer = cards.poll();
-
-        System.out.println(answer);
+        System.out.println(queue.poll());
     }
 }
