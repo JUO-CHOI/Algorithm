@@ -1,24 +1,24 @@
 class Solution {
-    public static int[] solution(int brown, int yellow) {
+    public int[] solution(int brown, int yellow) {
         int[] answer = new int[2];
+        
+        int row = 0;
+        int col = 0;
 
-        int i = 1;
-        int j = 1;
+        for (int i = 1; i <= yellow; i++) {
+            if (yellow % i != 0) continue;
+            col = i + 2;
+            row = yellow / i + 2;
 
-        while (true) {
-            while (j <= i) {
-                if (
-                        (i - 2) * (j - 2) == yellow &&
-                                (i + j) * 2 - 4 == brown
-                ) {
-                    answer[0] = i;
-                    answer[1] = j;
-                    return answer;
-                }
-                j++;
+            if ((row * col - yellow) == brown) {
+                answer[0] = row;
+                answer[1] = col;
+                break;
             }
-            j = 1;
-            i++;
         }
+
+        System.out.println(row);
+        System.out.println(col);
+        return answer;
     }
 }
