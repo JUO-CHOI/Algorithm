@@ -22,6 +22,6 @@ class Solution {
             }
         }
         
-        return map.keySet().toArray()[0].toString();
+        return map.keySet().iterator().next();
     }
 }
