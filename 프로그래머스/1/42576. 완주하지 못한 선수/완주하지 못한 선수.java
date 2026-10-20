@@ -1,24 +1,27 @@
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 class Solution {
-public static String solution(String[] participant, String[] completion) {
-        Map<String, Integer> mp = new HashMap<>();
-        for (String key : participant) {
-            mp.put(key, mp.getOrDefault(key, 0) + 1);
-        }
-
-        for (int i = 0; i < completion.length; i++) {
-            mp.put(completion[i], mp.get(completion[i]) - 1);
-            if (mp.get(completion[i]) == 0) {
-                mp.remove(completion[i]);
+    public String solution(String[] participant, String[] completion) {
+        HashMap<String, Integer> map = new HashMap<>();
+        String name;
+        
+        for (int i = 0; i < participant.length; i++) {
+            name = participant[i];
+            if (map.containsKey(name)) {
+                map.put(name, map.get(name) + 1);
+            } else {
+                map.put(name, 1);
             }
         }
-
-        Iterator<String> iterator = mp.keySet().iterator();
-        String answer = iterator.next();
-
-        return answer;
+        
+        for (int i = 0; i < completion.length; i++) {
+            name = completion[i];
+            map.put(name, map.get(name) - 1);
+            if (map.get(name) == 0) {
+                map.remove(name);
+            }
+        }
+        
+        return map.keySet().toArray()[0].toString();
     }
 }
